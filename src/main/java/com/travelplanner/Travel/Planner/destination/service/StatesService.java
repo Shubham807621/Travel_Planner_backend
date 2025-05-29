@@ -40,10 +40,27 @@ public class StatesService {
         States states1 = States.builder()
                         .name(stateDTO.getName())
                         .description(stateDTO.getDescription())
+                        .imgUrl(stateDTO.getImgUrl())
                         .build();
         statesRepo.save(states1);
 
         return ResponseDto.builder().code(201).message("State Added Successfully").build();
+
+    }
+
+    public ResponseDto updateStates(StateDTO stateDTO) {
+
+        States states = statesRepo.findByName(stateDTO.getName());
+        if (states != null){
+                 states.setName(stateDTO.getName());
+                 states.setDescription(stateDTO.getDescription());
+                 states.setImgUrl(stateDTO.getImgUrl());
+            statesRepo.save(states);
+
+            return ResponseDto.builder().code(201).message("State Updated Successfully").build();
+        }
+
+        return ResponseDto.builder().code(400).message("State not exists with name :" + states.getName()).build();
 
     }
 }

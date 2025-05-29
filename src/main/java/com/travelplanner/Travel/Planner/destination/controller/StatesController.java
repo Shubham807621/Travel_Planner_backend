@@ -34,4 +34,12 @@ public class StatesController {
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @PutMapping("/update-state")
+    public ResponseEntity<ResponseDto> updateStates(@RequestBody StateDTO stateDTO){
+
+        ResponseDto responseDto = statesService.updateStates(stateDTO);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }

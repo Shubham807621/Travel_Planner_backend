@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface CityRepo extends JpaRepository<City, UUID> {
 
     City findByName(String name);
+
+    City findByNameIgnoreCase(String cityName);
 }

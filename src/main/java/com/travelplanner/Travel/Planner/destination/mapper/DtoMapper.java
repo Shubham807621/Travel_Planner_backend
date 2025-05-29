@@ -15,6 +15,7 @@ public class DtoMapper {
                 .id(states.getId())
                 .name(states.getName())
                 .description(states.getDescription())
+                .imgUrl(states.getImgUrl())
                 .build();
     }
 

@@ -25,6 +25,8 @@ public class States {
 
     private String description;
 
+    private String imgUrl;
+
     @OneToMany(mappedBy = "states", cascade = CascadeType.ALL)
     private List<City> cities;
 }
