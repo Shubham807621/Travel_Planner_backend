@@ -56,4 +56,20 @@ public class CityService {
         return ResponseDto.builder().code(201).message("City Added Successfully").build();
 
     }
+
+    public ResponseDto updateCity(CityDTO cityDTO) {
+
+        City city = cityRepo.findById(cityDTO.getId()).orElse(null);
+        if (city !=null){
+            city.setName(cityDTO.getName());
+            city.setDescription(cityDTO.getDescription());
+            city.setImgUrl(cityDTO.getImgUrl());
+            cityRepo.save(city);
+            return ResponseDto.builder().code(201).message("City Updated Successfully").build();
+
+        }
+
+        return ResponseDto.builder().code(400).message("City not exists with name :" + cityDTO.getName()).build();
+
+    }
 }

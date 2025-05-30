@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +29,11 @@ public class StatesService {
                 .map(dtoMapper::toStateDto)
                 .collect(Collectors.toList());
     }
-
+    public StateDTO getStateById(String name) {
+        States states= statesRepo.findByName(name);
+        assert states != null;
+        return dtoMapper.toStateDto(states);
+    }
     public ResponseDto addStates(StateDTO stateDTO) {
 
         States states = statesRepo.findByName(stateDTO.getName());
@@ -60,7 +65,9 @@ public class StatesService {
             return ResponseDto.builder().code(201).message("State Updated Successfully").build();
         }
 
-        return ResponseDto.builder().code(400).message("State not exists with name :" + states.getName()).build();
+        return ResponseDto.builder().code(400).message("State not exists with name :" + stateDTO.getName()).build();
 
     }
+
+
 }

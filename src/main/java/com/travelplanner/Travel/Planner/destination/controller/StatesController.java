@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.PublicKey;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -25,6 +26,14 @@ public class StatesController {
         List<StateDTO> stateDTOS = statesService.getAllStates();
 
         return new ResponseEntity<>(stateDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/get_states/{name}")
+    public ResponseEntity<StateDTO> getStateById(@PathVariable String name){
+
+      StateDTO stateDTO = statesService.getStateById(name);
+
+        return new ResponseEntity<>(stateDTO, HttpStatus.OK);
     }
 
     @PostMapping("/add-states")

@@ -33,5 +33,12 @@ public class CityController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    @PutMapping("/update-city")
+    public ResponseEntity<ResponseDto> updateCity(@RequestBody CityDTO cityDTO){
+
+        ResponseDto responseDto = cityService.updateCity(cityDTO);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 
 }
