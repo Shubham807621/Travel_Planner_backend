@@ -54,10 +54,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/update-city").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/hotel/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/add-hotel").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/update-hotel").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/room/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/add-room").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/packages/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/add-package").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/get-places/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/add-places").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JWTAuthenticationFilter(jwtTokenHelper, userDetailsService),

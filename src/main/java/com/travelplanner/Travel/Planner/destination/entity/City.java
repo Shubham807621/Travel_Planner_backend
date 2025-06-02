@@ -35,4 +35,7 @@ public class City {
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Hotel> hotels;
+
+    @OneToMany(mappedBy = "city",cascade = CascadeType.ALL)
+    private List<Places> places ;
 }

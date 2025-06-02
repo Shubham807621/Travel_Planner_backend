@@ -45,4 +45,12 @@ public class HotelController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    @PutMapping("/update-hotel")
+    public ResponseEntity<ResponseDto> updateHotel(@RequestBody AddHotelDto addHotelDto){
+
+        ResponseDto responseDto = hotelService.updateHotel(addHotelDto);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 }

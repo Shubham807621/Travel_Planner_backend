@@ -82,5 +82,15 @@ public class DtoMapper {
                 .imgUrl(hotel.getImgUrl())
                 .build();
     }
+
+    public PlaceDto toPlaceDto(Places places) {
+
+        return PlaceDto.builder()
+                .id(places.getId())
+                .name(places.getName())
+                .description(places.getDescription())
+                .imgUrl(places.getImgUrl())
+                .build();
+    }
 }
 

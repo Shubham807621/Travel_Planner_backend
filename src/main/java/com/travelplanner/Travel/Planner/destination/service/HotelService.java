@@ -70,4 +70,22 @@ public class HotelService {
 
         return ResponseDto.builder().code(201).message("Hotel Added Successfully").build();
     }
+
+    public ResponseDto updateHotel(AddHotelDto addHotelDto) {
+
+        Hotel hotel = hotelRepo.findById(addHotelDto.getId()).orElse(null);
+
+        if (hotel != null){
+            hotel.setName(addHotelDto.getName());
+            hotel.setDescription(addHotelDto.getDescription());
+            hotel.setAddress(addHotelDto.getAddress());
+            hotel.setImgUrl(addHotelDto.getImgUrl());
+            hotel.setRating(addHotelDto.getRating());
+
+            hotelRepo.save(hotel);
+            return ResponseDto.builder().code(200).message("Hotel Details Updated Successfully").build();
+        }
+        return ResponseDto.builder().code(400).message("Hotel not exists ").build();
+
+    }
 }

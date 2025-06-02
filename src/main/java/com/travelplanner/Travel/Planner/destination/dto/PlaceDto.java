@@ -11,11 +11,9 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddHotelDto {
+public class PlaceDto {
     private UUID id;
     private String name;
     private String description;
-    private double rating;
     private String imgUrl;
-    private String address;
 }
