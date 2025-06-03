@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -30,49 +33,55 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public ResponseDto register(RegistrationRequest registrationRequest) {
+        // Check for existing email
         Users existing = userRepo.findByEmail(registrationRequest.getEmail());
-
-        if(null != existing){
+        if (existing != null) {
             return ResponseDto.builder()
                     .code(400)
                     .message("Email Already Exist !!")
                     .build();
         }
 
-        // Fetch role from DB
-        String roleCode = (registrationRequest.getRoleCode() == null || registrationRequest.getRoleCode().isEmpty())
-                ? "USER"
-                : registrationRequest.getRoleCode().toUpperCase();
+        // Use default role "User" if none provided
+        String roleCode = registrationRequest.getRoleCode();
+        if (roleCode == null || roleCode.trim().isEmpty()) {
+            roleCode = "User";
+        }
 
         // Fetch role from DB
         Authority authority = authorityRepo.findByRoleCode(roleCode);
         if (authority == null) {
             return ResponseDto.builder()
                     .code(400)
-                    .message("Invalid role provided")
+                    .message("Invalid role code")
                     .build();
         }
+
+        // Assign role
+        List<Authority> newAuthorities = new ArrayList<>();
+        newAuthorities.add(authority);
 
         // Generate userId based on role
         String generatedUserId = userHelper.generateUserId(authority.getRoleCode());
 
+        // Build and save user
         Users user = Users.builder()
                 .firstName(registrationRequest.getFirstName())
                 .lastName(registrationRequest.getLastName())
                 .email(registrationRequest.getEmail())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .phoneNumber(registrationRequest.getPhoneNumber())
-                .authority(authority)
-                .enabled(true) // Optional: set to false if you want to verify first
+                .authorities(newAuthorities)
+                .enabled(true)
                 .userId(generatedUserId)
                 .build();
 
-        // Save
         userRepo.save(user);
 
-        return  ResponseDto.builder()
+        return ResponseDto.builder()
                 .code(201)
                 .message("User registered successfully with ID: " + generatedUserId)
                 .build();
     }
+
 }

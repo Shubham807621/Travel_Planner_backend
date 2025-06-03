@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/add-city").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/update-city").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/hotel/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/hotel/search").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/add-hotel").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/update-hotel").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/room/**").permitAll()
