@@ -44,7 +44,7 @@ public class UserService {
 
         // Use default role "User" if none provided
         String roleCode = registrationRequest.getRoleCode();
-        if (roleCode == null || roleCode.trim().isEmpty()) {
+        if (roleCode == null) {
             roleCode = "User";
         }
 
