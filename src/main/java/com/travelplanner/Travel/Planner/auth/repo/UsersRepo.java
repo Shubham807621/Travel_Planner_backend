@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UsersRepo extends JpaRepository<Users, UUID> {
@@ -12,5 +13,6 @@ public interface UsersRepo extends JpaRepository<Users, UUID> {
 
 
     @Query("SELECT u.userId FROM Users u WHERE u.userId LIKE CONCAT(:prefix, '%') ORDER BY u.userId DESC")
-    String findLastUserIdByPrefix(@Param("prefix") String prefix);
+    List<String> findUserIdsByPrefix(@Param("prefix") String prefix);
+
 }

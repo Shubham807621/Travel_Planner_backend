@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -42,15 +43,16 @@ public class Users implements UserDetails {
 
     private boolean enabled=false;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "authority_id") // assuming your foreign key column
-    private Authority authority;
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name = "AUTH_USER_AUTHORITY",joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
+    private List<Authority> authorities;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(authority);
+        return authorities;
     }
+
 
     @Override
     public String getPassword() {

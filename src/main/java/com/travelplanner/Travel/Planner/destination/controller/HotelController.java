@@ -1,10 +1,7 @@
 package com.travelplanner.Travel.Planner.destination.controller;
 
 import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
-import com.travelplanner.Travel.Planner.destination.dto.AddHotelDto;
-import com.travelplanner.Travel.Planner.destination.dto.HotelDTO;
-import com.travelplanner.Travel.Planner.destination.dto.HotelListDto;
-import com.travelplanner.Travel.Planner.destination.dto.StateDTO;
+import com.travelplanner.Travel.Planner.destination.dto.*;
 import com.travelplanner.Travel.Planner.destination.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +32,14 @@ public class HotelController {
         HotelDTO hotelDTO = hotelService.getHotelById(id);
 
         return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/hotel/search")
+    public ResponseEntity<List<SearchResponseDto>> searchHotels(@RequestBody SearchRequestDto searchRequestDto){
+
+        List<SearchResponseDto> searchResponseDtos = hotelService.searchHotels(searchRequestDto);
+
+        return new ResponseEntity<>(searchResponseDtos, HttpStatus.OK);
     }
 
     @PostMapping("/add-hotel/{name}")

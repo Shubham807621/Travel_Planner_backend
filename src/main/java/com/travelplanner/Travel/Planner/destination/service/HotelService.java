@@ -1,9 +1,7 @@
 package com.travelplanner.Travel.Planner.destination.service;
 
 import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
-import com.travelplanner.Travel.Planner.destination.dto.AddHotelDto;
-import com.travelplanner.Travel.Planner.destination.dto.HotelDTO;
-import com.travelplanner.Travel.Planner.destination.dto.HotelListDto;
+import com.travelplanner.Travel.Planner.destination.dto.*;
 import com.travelplanner.Travel.Planner.destination.entity.City;
 import com.travelplanner.Travel.Planner.destination.entity.Hotel;
 import com.travelplanner.Travel.Planner.destination.mapper.DtoMapper;
@@ -86,6 +84,16 @@ public class HotelService {
             return ResponseDto.builder().code(200).message("Hotel Details Updated Successfully").build();
         }
         return ResponseDto.builder().code(400).message("Hotel not exists ").build();
+
+    }
+
+    public List<SearchResponseDto> searchHotels(SearchRequestDto searchRequestDto) {
+        City city = cityRepo.findByName(searchRequestDto.getCity());
+
+        List<Hotel> hotels = city.getHotels();
+
+        return hotels.stream().map(dtoMapper::toSearchDto).collect(Collectors.toList());
+
 
     }
 }

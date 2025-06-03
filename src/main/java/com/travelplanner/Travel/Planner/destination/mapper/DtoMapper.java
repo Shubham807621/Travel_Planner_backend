@@ -92,5 +92,17 @@ public class DtoMapper {
                 .imgUrl(places.getImgUrl())
                 .build();
     }
+
+    public SearchResponseDto toSearchDto(Hotel hotel) {
+
+        return SearchResponseDto.builder()
+                .id(hotel.getId())
+                .name(hotel.getName())
+                .imgUrl(hotel.getImgUrl())
+                .rating(hotel.getRating())
+                .cityName(hotel.getCity() !=null ? hotel.getCity().getName(): null)
+                .build();
+
+    }
 }
 
