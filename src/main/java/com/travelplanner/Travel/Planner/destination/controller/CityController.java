@@ -25,6 +25,14 @@ public class CityController {
         return new ResponseEntity<>(cityDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/city/{name}")
+    public ResponseEntity<CityDTO> getCityByName(@PathVariable String name){
+
+        CityDTO cityDTOS = cityService.getCityByName(name);
+
+        return new ResponseEntity<>(cityDTOS, HttpStatus.OK);
+    }
+
     @PostMapping("/add-city/{name}")
     public ResponseEntity<ResponseDto> addCity(@PathVariable String name, @RequestBody CityDTO cityDTO){
 

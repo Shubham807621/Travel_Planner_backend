@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/add-states").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/update-states").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/cities/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/city/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/add-city").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/update-city").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/hotel/**").permitAll()
@@ -87,7 +88,7 @@ public class SecurityConfig {
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of("http://localhost:5173","https://travel-planner-sable-pi.vercel.app/"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

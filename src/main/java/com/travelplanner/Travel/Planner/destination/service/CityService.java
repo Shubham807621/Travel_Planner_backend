@@ -34,6 +34,12 @@ public class CityService {
         return cities.stream().map(dtoMapper::toCityDto).collect(Collectors.toList());
     }
 
+    public CityDTO getCityByName(String name) {
+
+        City city = cityRepo.findByName(name);
+        return dtoMapper.toCityDto(city);
+    }
+
     public ResponseDto addCity(String name, CityDTO cityDTO) {
 
         City existingCity = cityRepo.findByName(cityDTO.getName());
@@ -72,4 +78,6 @@ public class CityService {
         return ResponseDto.builder().code(400).message("City not exists with name :" + cityDTO.getName()).build();
 
     }
+
+
 }
