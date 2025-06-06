@@ -23,6 +23,7 @@ public class States {
 
     private String name;
 
+    @Lob
     private String description;
 
     private String imgUrl;

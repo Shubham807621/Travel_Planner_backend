@@ -24,6 +24,7 @@ public class City {
 
     private String name;
 
+    @Lob
     private String description;
 
     private String imgUrl;
