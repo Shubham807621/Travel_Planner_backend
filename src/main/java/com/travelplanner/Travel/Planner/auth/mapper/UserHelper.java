@@ -1,8 +1,11 @@
 package com.travelplanner.Travel.Planner.auth.mapper;
 
 
+import com.travelplanner.Travel.Planner.auth.dto.UserDto;
+import com.travelplanner.Travel.Planner.auth.entity.Users;
 import com.travelplanner.Travel.Planner.auth.repo.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,4 +40,19 @@ public class UserHelper {
     }
 
 
+    public UserDto userDto(Users users) {
+
+        String name = users.getFirstName() + " " + users.getLastName();
+        String role = users.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElse("User");
+
+        return UserDto.builder()
+                .id(users.getId())
+                .name(name)
+                .email(users.getEmail())
+                .role(role)
+                .build();
+    }
 }

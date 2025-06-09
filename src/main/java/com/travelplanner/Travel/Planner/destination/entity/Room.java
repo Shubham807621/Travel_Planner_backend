@@ -25,6 +25,12 @@ public class Room {
 
     private Integer capacity;
 
+    private String roomSize;
+
+    private String view;
+
+    private String bedType;
+
     private Double pricePerNight;
 
     @ManyToOne

@@ -1,10 +1,7 @@
 package com.travelplanner.Travel.Planner.auth.controller;
 
 import com.travelplanner.Travel.Planner.auth.config.JWTTokenHelper;
-import com.travelplanner.Travel.Planner.auth.dto.LoginRequest;
-import com.travelplanner.Travel.Planner.auth.dto.RegistrationRequest;
-import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
-import com.travelplanner.Travel.Planner.auth.dto.UserToken;
+import com.travelplanner.Travel.Planner.auth.dto.*;
 import com.travelplanner.Travel.Planner.auth.entity.Authority;
 import com.travelplanner.Travel.Planner.auth.entity.Users;
 import com.travelplanner.Travel.Planner.auth.service.AuthorityService;
@@ -18,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -88,6 +87,23 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+
+    @GetMapping("/user-list")
+    public ResponseEntity<List<UserDto>> getUserList(){
+
+        List<UserDto> userDtoList = userService.getUserList();
+
+        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/user-details/{userId}")
+    public ResponseEntity<UserDto> getUserDetails(@PathVariable String userId) {
+
+        UserDto userDto = userService.getUserDetails(userId);
+
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
 }

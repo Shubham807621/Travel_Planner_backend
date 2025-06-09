@@ -3,6 +3,7 @@ package com.travelplanner.Travel.Planner.auth.service;
 
 import com.travelplanner.Travel.Planner.auth.dto.RegistrationRequest;
 import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
+import com.travelplanner.Travel.Planner.auth.dto.UserDto;
 import com.travelplanner.Travel.Planner.auth.entity.Authority;
 import com.travelplanner.Travel.Planner.auth.entity.Users;
 import com.travelplanner.Travel.Planner.auth.mapper.UserHelper;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -84,4 +86,16 @@ public class UserService {
                 .build();
     }
 
+    public List<UserDto> getUserList() {
+
+        List<Users> users = userRepo.findAll();
+
+        return users.stream().map(userHelper::userDto).collect(Collectors.toList());
+    }
+
+    public UserDto getUserDetails(String userId) {
+        Users users = userRepo.findByUserId(userId);
+
+        return userHelper.userDto(users);
+    }
 }

@@ -63,6 +63,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/add-package").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/get-places/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/add-places").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/update-place").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JWTAuthenticationFilter(jwtTokenHelper, userDetailsService),

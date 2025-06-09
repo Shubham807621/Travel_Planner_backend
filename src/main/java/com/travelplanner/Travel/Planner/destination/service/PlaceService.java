@@ -58,9 +58,24 @@ public class PlaceService {
         placeRepo.save(places);
 
         return ResponseDto.builder().code(201).message("Place Added Successfully").build();
+    }
+
+    public ResponseDto updatePlace(PlaceDto placeDto) {
+
+        Places places = placeRepo.findById(placeDto.getId()).orElse(null);
+
+        if (places != null){
+
+            places.setName(placeDto.getName());
+            places.setDescription(placeDto.getDescription());
+            places.setImgUrl(placeDto.getImgUrl());
+
+            placeRepo.save(places);
+
+            return ResponseDto.builder().code(200).message("Place Updated Successfully").build();
+        }
+        return ResponseDto.builder().code(400).message("Place already exists with name :" + placeDto.getName()).build();
 
 
     }
-
-
 }

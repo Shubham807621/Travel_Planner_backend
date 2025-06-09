@@ -66,6 +66,9 @@ public class DtoMapper {
         return RoomDTO.builder()
                 .id(room.getId())
                 .roomType(room.getRoomType())
+                .view(room.getView())
+                .roomSize(room.getRoomSize())
+                .bedType(room.getBedType())
                 .pricePerNight(room.getPricePerNight())
                 .capacity(room.getCapacity())               
                 .build();

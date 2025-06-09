@@ -44,5 +44,14 @@ public class PlaceController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
+    @PutMapping("/update-place")
+    public ResponseEntity<ResponseDto> updatePlace(@RequestBody PlaceDto placeDto){
+
+        ResponseDto responseDto = placeService.updatePlace(placeDto);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+
+    }
+
 
 }

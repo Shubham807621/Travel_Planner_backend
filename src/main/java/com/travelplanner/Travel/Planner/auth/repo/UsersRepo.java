@@ -11,8 +11,8 @@ import java.util.UUID;
 public interface UsersRepo extends JpaRepository<Users, UUID> {
     Users findByEmail(String username);
 
-
     @Query("SELECT u.userId FROM Users u WHERE u.userId LIKE CONCAT(:prefix, '%') ORDER BY u.userId DESC")
     List<String> findUserIdsByPrefix(@Param("prefix") String prefix);
 
+    Users findByUserId(String userId);
 }
