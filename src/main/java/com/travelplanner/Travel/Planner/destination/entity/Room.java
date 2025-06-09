@@ -33,6 +33,8 @@ public class Room {
 
     private Double pricePerNight;
 
+    private String imgUrl;
+
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     @JsonIgnore

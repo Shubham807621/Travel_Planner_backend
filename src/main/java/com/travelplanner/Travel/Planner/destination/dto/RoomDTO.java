@@ -19,5 +19,6 @@ public class RoomDTO {
     private String roomSize;
     private String view;
     private String bedType;
+    private String imgUrl;
     private double pricePerNight;
 }

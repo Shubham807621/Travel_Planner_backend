@@ -34,6 +34,14 @@ public class RoomController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    @PutMapping("/update-room")
+    public ResponseEntity<ResponseDto> updateRoom(@RequestBody RoomDTO roomDTO){
+
+        ResponseDto responseDto = roomService.updateRoom(roomDTO);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 
 
 }
