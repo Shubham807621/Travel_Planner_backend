@@ -53,6 +53,7 @@ public class UserHelper {
                 .name(name)
                 .email(users.getEmail())
                 .role(role)
+                .phoneNumber(users.getPhoneNumber())
                 .build();
     }
 }
