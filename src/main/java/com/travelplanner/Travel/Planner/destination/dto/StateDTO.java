@@ -1,5 +1,6 @@
 package com.travelplanner.Travel.Planner.destination.dto;
 
+import com.travelplanner.Travel.Planner.destination.entity.Resources;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +18,6 @@ public class StateDTO {
     private String name;
     private String description;
     private String imgUrl;
-//    private List<CityDTO> cities;
+    private List<Resources> resources;
+
 }

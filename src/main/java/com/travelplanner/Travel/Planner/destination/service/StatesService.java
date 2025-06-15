@@ -2,6 +2,7 @@ package com.travelplanner.Travel.Planner.destination.service;
 
 import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
 import com.travelplanner.Travel.Planner.destination.dto.StateDTO;
+import com.travelplanner.Travel.Planner.destination.entity.Resources;
 import com.travelplanner.Travel.Planner.destination.entity.States;
 import com.travelplanner.Travel.Planner.destination.mapper.DtoMapper;
 import com.travelplanner.Travel.Planner.destination.repo.StatesRepo;
@@ -29,7 +30,7 @@ public class StatesService {
                 .map(dtoMapper::toStateDto)
                 .collect(Collectors.toList());
     }
-    public StateDTO getStateById(String name) {
+    public StateDTO getStateByName(String name) {
         States states= statesRepo.findByName(name);
         assert states != null;
         return dtoMapper.toStateDto(states);
@@ -60,6 +61,18 @@ public class StatesService {
                  states.setName(stateDTO.getName());
                  states.setDescription(stateDTO.getDescription());
                  states.setImgUrl(stateDTO.getImgUrl());
+            List<Resources> newResources = stateDTO.getResources();
+            if (newResources != null) {
+                // Clear the old list
+                states.getResources().clear();
+
+                // Assign new resources
+                for (Resources resource : newResources) {
+                    resource.setStates(states); // maintain bidirectional relationship
+                    states.getResources().add(resource);
+                }
+            }
+
             statesRepo.save(states);
 
             return ResponseDto.builder().code(201).message("State Updated Successfully").build();

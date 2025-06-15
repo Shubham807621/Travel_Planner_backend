@@ -31,7 +31,7 @@ public class StatesController {
     @GetMapping("/get_states/{name}")
     public ResponseEntity<StateDTO> getStateById(@PathVariable String name){
 
-      StateDTO stateDTO = statesService.getStateById(name);
+      StateDTO stateDTO = statesService.getStateByName(name);
 
         return new ResponseEntity<>(stateDTO, HttpStatus.OK);
     }
