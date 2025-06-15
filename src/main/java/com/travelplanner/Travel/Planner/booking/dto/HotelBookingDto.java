@@ -23,4 +23,5 @@ public class HotelBookingDto {
     private String postalCode;
     private String name;
     private String email;
+    private UUID roomId;
 }

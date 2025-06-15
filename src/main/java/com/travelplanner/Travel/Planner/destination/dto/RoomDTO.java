@@ -21,4 +21,6 @@ public class RoomDTO {
     private String bedType;
     private String imgUrl;
     private double pricePerNight;
+    private Boolean available;
+
 }

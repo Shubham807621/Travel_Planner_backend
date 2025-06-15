@@ -4,6 +4,7 @@ package com.travelplanner.Travel.Planner.travelpackages.service;
 import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
 import com.travelplanner.Travel.Planner.destination.entity.City;
 import com.travelplanner.Travel.Planner.destination.repo.CityRepo;
+import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageDetailsDTO;
 import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageDto;
 import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageRequestDto;
 import com.travelplanner.Travel.Planner.travelpackages.entity.TravelPackage;
@@ -12,6 +13,7 @@ import com.travelplanner.Travel.Planner.travelpackages.repo.PackageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,8 +31,11 @@ public class PackageService {
     private TravelPackageMapper travelPackageMapper;
 
 
-    public TravelPackage getPackageById(UUID id) {
-        return packageRepo.findById(id).orElse(null);
+    public TravelPackageDetailsDTO getPackageById(UUID id) {
+        TravelPackage travelPackage = packageRepo.findById(id).orElse(null);
+
+        assert travelPackage != null;
+        return travelPackageMapper.toDetailsDTO(travelPackage);
     }
 
     public List<TravelPackageDto> getAllPackage() {
@@ -50,5 +55,18 @@ public class PackageService {
         packageRepo.save(travelPackage);
 
         return ResponseDto.builder().code(201).message("Package Added Successfully").build();
+    }
+
+    public List<TravelPackageDto> getAllPackageByCityName(String name) {
+        City city = cityRepo.findByNameIgnoreCase(name);
+
+        if (city == null) {
+            return new ArrayList<>(); // or throw an exception if preferred
+        }
+
+        // Step 2: Get packages linked to the city
+        List<TravelPackage> travelPackages = packageRepo.findByCity(city);
+
+        return travelPackages.stream().map(travelPackageMapper::toDto).collect(Collectors.toList());
     }
 }

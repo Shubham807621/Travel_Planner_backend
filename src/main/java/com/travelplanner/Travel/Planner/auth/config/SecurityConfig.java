@@ -63,8 +63,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/packages/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/add-package").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/get-places/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/availability/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/add-places").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/update-place").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/add-hotel-booking").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/all-booking").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JWTAuthenticationFilter(jwtTokenHelper, userDetailsService),

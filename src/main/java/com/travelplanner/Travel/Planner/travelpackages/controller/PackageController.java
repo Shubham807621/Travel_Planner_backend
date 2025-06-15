@@ -1,6 +1,7 @@
 package com.travelplanner.Travel.Planner.travelpackages.controller;
 
 import com.travelplanner.Travel.Planner.auth.dto.ResponseDto;
+import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageDetailsDTO;
 import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageDto;
 import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageRequestDto;
 import com.travelplanner.Travel.Planner.travelpackages.entity.TravelPackage;
@@ -21,9 +22,9 @@ public class PackageController {
     private PackageService packageService;
 
     @GetMapping("/packages/{id}")
-    public ResponseEntity<TravelPackage> getPackageById(@PathVariable UUID id){
+    public ResponseEntity<TravelPackageDetailsDTO> getPackageById(@PathVariable UUID id){
 
-        TravelPackage travelPackage = packageService.getPackageById(id);
+        TravelPackageDetailsDTO travelPackage = packageService.getPackageById(id);
 
         return new ResponseEntity<>(travelPackage, HttpStatus.OK);
     }
@@ -42,5 +43,13 @@ public class PackageController {
         ResponseDto responseDto = packageService.addPackage(travelPackageRequestDto);
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/packages/get-packages-byCity/{name}")
+    public ResponseEntity<List<TravelPackageDto>> getAllPackageByCityName(@PathVariable String name){
+
+        List<TravelPackageDto> travelPackages = packageService.getAllPackageByCityName(name);
+
+        return new ResponseEntity<>(travelPackages, HttpStatus.OK);
     }
 }

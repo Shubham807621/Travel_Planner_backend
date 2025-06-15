@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,6 +28,14 @@ public class BookingController {
         return new ResponseEntity<>(packageBooking, HttpStatus.OK);
     }
 
+    @GetMapping("/all-booking")
+    public ResponseEntity<List<HotelBookingDto>> getAllBooking(){
+        List<HotelBookingDto> hotelBookingDtos = bookingService.getAllBooking();
+
+        return new ResponseEntity<>(hotelBookingDtos, HttpStatus.OK);
+
+    }
+
     @GetMapping("/hotel-booking/{id}")
     public ResponseEntity<HotelBookingDto> getHotelBookingById(@PathVariable UUID id){
 
@@ -35,11 +44,11 @@ public class BookingController {
         return new ResponseEntity<>(hotelBooking, HttpStatus.OK);
     }
 
-//    @PostMapping("/add-hotel-booking")
-//    public ResponseEntity<ResponseDto> addHotelBooking(@RequestBody HotelBookingDto hotelBookingDto){
-//
-//        ResponseDto responseDto = bookingService.addHotelBooking(hotelBookingDto);
-//
-//        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
-//    }
+    @PostMapping("/add-hotel-booking")
+    public ResponseEntity<ResponseDto> addHotelBooking(@RequestBody HotelBookingDto hotelBookingDto){
+
+        ResponseDto responseDto = bookingService.addHotelBooking(hotelBookingDto);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
 }

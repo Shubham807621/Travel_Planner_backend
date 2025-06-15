@@ -73,6 +73,9 @@ public class RoomService {
                 existingRoom.setBedType(roomDTO.getBedType());
                 existingRoom.setImgUrl(roomDTO.getImgUrl());
                 existingRoom.setPricePerNight(roomDTO.getPricePerNight());
+
+                existingRoom.setAvailable(roomDTO.getAvailable());
+
             roomRepo.save(existingRoom);
             return ResponseDto.builder().code(201).message("Room Updated Successfully").build();
 

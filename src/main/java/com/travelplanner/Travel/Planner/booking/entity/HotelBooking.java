@@ -2,6 +2,7 @@ package com.travelplanner.Travel.Planner.booking.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.travelplanner.Travel.Planner.auth.entity.Users;
+import com.travelplanner.Travel.Planner.destination.entity.Room;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +41,13 @@ public class HotelBooking {
     private String postalCode;
 
     @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    @ManyToOne
     @JoinColumn(name = "users_id")
     @JsonIgnore
     private Users bookedBy;
+
+
 }

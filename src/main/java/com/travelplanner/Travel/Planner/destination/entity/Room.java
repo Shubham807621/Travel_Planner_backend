@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,8 +36,14 @@ public class Room {
 
     private String imgUrl;
 
+    @Column(name = "available")
+    private Boolean available = true;  // Use Boolean, not boolean
+
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     @JsonIgnore
     private Hotel hotel;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<RoomBooking> bookings;
 }

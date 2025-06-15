@@ -71,7 +71,8 @@ public class DtoMapper {
                 .bedType(room.getBedType())
                 .pricePerNight(room.getPricePerNight())
                 .imgUrl(room.getImgUrl())
-                .capacity(room.getCapacity())               
+                .capacity(room.getCapacity())
+                .available(room.getAvailable())
                 .build();
     }
 

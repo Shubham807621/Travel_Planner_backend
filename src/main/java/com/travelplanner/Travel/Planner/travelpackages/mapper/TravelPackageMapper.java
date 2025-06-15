@@ -4,9 +4,7 @@ import com.travelplanner.Travel.Planner.destination.entity.City;
 import com.travelplanner.Travel.Planner.destination.entity.Hotel;
 import com.travelplanner.Travel.Planner.destination.entity.Room;
 import com.travelplanner.Travel.Planner.destination.dto.RoomDTO;
-import com.travelplanner.Travel.Planner.travelpackages.dto.PackageHotelDto;
-import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageDto;
-import com.travelplanner.Travel.Planner.travelpackages.dto.TravelPackageRequestDto;
+import com.travelplanner.Travel.Planner.travelpackages.dto.*;
 import com.travelplanner.Travel.Planner.travelpackages.entity.Activity;
 import com.travelplanner.Travel.Planner.travelpackages.entity.TravelPackage;
 import org.springframework.stereotype.Component;
@@ -84,6 +82,58 @@ public class TravelPackageMapper {
                 .isGroupPackage(travelPackage.isGroupPackage())
                 .price(travelPackage.getPrice())
                 .durationInDays(travelPackage.getDurationInDays())
+                .cityName(travelPackage.getCity().getName())
                 .build();
+    }
+
+    public TravelPackageDetailsDTO toDetailsDTO(TravelPackage travelPackage) {
+        return TravelPackageDetailsDTO.builder()
+                .id(travelPackage.getId())
+                .packageName(travelPackage.getPackageName())
+                .groupPackage(travelPackage.isGroupPackage())
+                .price(travelPackage.getPrice())
+                .durationInDays(travelPackage.getDurationInDays())
+                .cityName(travelPackage.getCity() != null ? travelPackage.getCity().getName() : null)
+                .hotels(mapHotels(travelPackage.getHotels()))
+                .activities(mapActivities(travelPackage.getActivities()))
+                .build();
+    }
+
+
+    private  List<PackageHotelDto> mapHotels(List<Hotel> hotels) {
+        return hotels.stream().map(hotel -> PackageHotelDto.builder()
+                .name(hotel.getName())
+                .address(hotel.getAddress())
+                .rating(hotel.getRating())
+                .rooms(mapRooms(hotel.getRooms()))
+                .build()
+        ).collect(Collectors.toList());
+    }
+
+    private  List<RoomDTO> mapRooms(List<Room> rooms) {
+        if (rooms == null) return List.of();
+        return rooms.stream().map(room -> RoomDTO.builder()
+                .id(room.getId())
+                .roomType(room.getRoomType())
+                .capacity(room.getCapacity())
+                .roomSize(room.getRoomSize())
+                .view(room.getView())
+                .bedType(room.getBedType())
+                .pricePerNight(room.getPricePerNight())
+                .build()
+        ).collect(Collectors.toList());
+    }
+
+
+    private List<ActivityDto> mapActivities(List<Activity> activities) {
+        if (activities == null) return List.of();
+        return activities.stream().map(activity -> ActivityDto.builder()
+                .id(activity.getId())
+                .name(activity.getName())
+                .description(activity.getDescription())
+                .price(activity.getPrice())
+                .isOutdoor(activity.isOutdoor())
+                .build()
+        ).collect(Collectors.toList());
     }
 }

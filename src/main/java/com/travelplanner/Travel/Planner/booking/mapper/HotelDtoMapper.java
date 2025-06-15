@@ -21,6 +21,7 @@ public class HotelDtoMapper {
                 .postalCode(hotelBooking.getPostalCode())
                 .name(name)
                 .email(hotelBooking.getBookedBy().getEmail())
+                .roomId(hotelBooking.getRoom().getId())
                 .build();
     }
 }
